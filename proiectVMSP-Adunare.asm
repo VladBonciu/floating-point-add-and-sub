@@ -1,4 +1,4 @@
-.model huge
+.model small
 .stack 200h
 .data
     a dd ?
@@ -12,7 +12,7 @@
     ;se stocheaza in ax numarul citit in CC 
     ;poate fi utilizat caracterul '-' pentru introducerea unei valori negative
     ;observatie: CC pe 16 biti poate acoperi valori intre [-32,768, 32,767]
-    ;input: de la
+    ;input: de la tastatura
     citireNumarCC PROC
         ;initializam dx cu 10 ca sa facem inmlutirea
         mov dx, 10
@@ -890,7 +890,7 @@
         jmp afiseaza
         
         gata:
-            ret 2
+            ret 
         
     afisareNumar endp
 

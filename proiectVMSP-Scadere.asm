@@ -1,4 +1,4 @@
-.model huge
+.model small
 .stack 200h
 .data
     a dd ?
@@ -12,7 +12,7 @@
     ;se stocheaza in ax numarul citit in CC 
     ;poate fi utilizat caracterul '-' pentru introducerea unei valori negative
     ;observatie: CC pe 16 biti poate acoperi valori intre [-32,768, 32,767]
-    ;input: de la
+    ;input: de la tastatura
     citireNumarCC PROC
         ;initializam dx cu 10 ca sa facem inmlutirea
         mov dx, 10
@@ -357,7 +357,7 @@
         mov word ptr b, cx
         mov word ptr b + 2, dx
 
-        ;punem masca de biti pentru exponent (0111111110000000) 
+        ;punem masca de biti pentru exponent (0111 1111 1000 0000) 
         mov dx, 7F80h
 
         ;aplicam masca pe ambele jumatati de VMSP care contin exponentul
@@ -908,7 +908,7 @@
         jmp afiseaza
         
         gata:
-            ret 2
+            ret 
         
     afisareNumar endp
 
