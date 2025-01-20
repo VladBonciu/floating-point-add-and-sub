@@ -3,7 +3,7 @@
 .data
     a dd ?
     b dd ?
-    mesInceput db "Introduceti numerele pentru efectuarea 'a+b' :", 10, 13, '$'
+    mesInceput db "Introduceti numerele pentru efectuarea 'a+b' (valori intre [-32,768, 32,767]) :", 10, 13, '$'
     mesA db "a = $"
     mesB db "b = $"
     mesFinal db "a+b = $"
@@ -117,11 +117,24 @@
 
         cmp ax, 0
         je cazSpecialZero
-        jmp prelucrareNumar
+        jmp verificareCazSpecial2
 
         cazSpecialZero:
             pop ax
             mov cx, 0000h
+            mov dx, 0000h
+            ret
+
+        verificareCazSpecial2:
+
+        ;pentru caz special -32768
+        cmp ax, 8000h
+        je cazSpecialNrMinim
+        jmp prelucrareNumar
+
+        cazSpecialNrMinim:
+            pop ax
+            mov cx, 0c700h
             mov dx, 0000h
             ret
 
@@ -326,7 +339,7 @@
 
     ; input: ax:bx si cx:dx (ax:bx - cx:dx)
     ; output: cx:dx valoarea calculata
-    diferentaVMSP PROC
+    sunaVMSP PROC
 
         push bx
         push dx
@@ -805,7 +818,7 @@
 
 
 
-    diferentaVMSP ENDP
+    sunaVMSP ENDP
     
     ;input: ax - nr in CC
     ;output: afisare nr pe ecran
@@ -915,7 +928,7 @@
         pop bx
         pop ax
     
-        call diferentaVMSP
+        call sunaVMSP
 
         ;mutam val lui ax in bx ca sa nu intervina cu afisarea mesajului de final
         mov bx, ax
